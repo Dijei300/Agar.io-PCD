@@ -1,6 +1,6 @@
 package environment;
 
-public class Coordinate {
+public class   Coordinate {
 	public final int x;
 	public final int y;
 

@@ -1,5 +1,6 @@
 package environment;
 
+import game.AutomaticPlayer;
 import game.Game;
 import game.Player;
 
@@ -31,7 +32,5 @@ public class Cell {
 	public void setPlayer(Player player) {
 		this.player = player;
 	}
-	
-	
 
 }

@@ -9,7 +9,7 @@ import environment.Cell;
  * @author luismota
  *
  */
-public abstract class Player  {
+public abstract class Player extends Thread  {
 
 
 	protected  Game game;
@@ -33,7 +33,8 @@ public abstract class Player  {
 	}
 
 	public abstract boolean isHumanPlayer();
-	
+
+
 	@Override
 	public String toString() {
 		return "Player [id=" + id + ", currentStrength=" + currentStrength + ", getCurrentCell()=" + getCurrentCell()

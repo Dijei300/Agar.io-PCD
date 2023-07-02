@@ -2,8 +2,10 @@ package gui;
 
 import java.util.Observable;
 import java.util.Observer;
+
+import game.AutomaticPlayer;
 import game.Game;
-import game.PhoneyHumanPlayer;
+import game.HumanPlayer;
 
 import javax.swing.JFrame;
 
@@ -41,9 +43,17 @@ public class GameGuiMain implements Observer {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		game.addPlayerToGame(new PhoneyHumanPlayer(1, game, (byte)3));
-		game.addPlayerToGame(new PhoneyHumanPlayer(2, game, (byte)2));
-		game.addPlayerToGame(new PhoneyHumanPlayer(3, game, (byte)1));
+		game.addPlayerToGame(new HumanPlayer(1, game, (byte)3));
+		addAutoToGame();
+
+	}
+
+	public void addAutoToGame(){
+		for(int i = 0; i < 30; i++){
+			AutomaticPlayer p = new AutomaticPlayer(i, game, (byte)((Math.random() * Game.MAX_INITIAL_STRENGTH) + 1));
+			game.addPlayerToGame(p);
+			System.out.println(p.toString());
+		}
 	}
 
 	@Override
