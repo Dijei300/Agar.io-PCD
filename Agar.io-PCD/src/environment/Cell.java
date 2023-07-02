@@ -15,6 +15,10 @@ public class Cell {
 		this.game=g;
 	}
 
+	public void move(){
+
+	}
+
 	public Coordinate getPosition() {
 		return position;
 	}

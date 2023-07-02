@@ -6,6 +6,7 @@ import java.util.Observer;
 import game.AutomaticPlayer;
 import game.Game;
 import game.HumanPlayer;
+import game.Player;
 
 import javax.swing.JFrame;
 
@@ -44,15 +45,15 @@ public class GameGuiMain implements Observer {
 			e.printStackTrace();
 		}
 		game.addPlayerToGame(new HumanPlayer(1, game, (byte)3));
-		addAutoToGame();
+		Player[] players = new Player[30];
+		addAutoToGame(players);
 
 	}
 
-	public void addAutoToGame(){
-		for(int i = 0; i < 30; i++){
-			AutomaticPlayer p = new AutomaticPlayer(i, game, (byte)((Math.random() * Game.MAX_INITIAL_STRENGTH) + 1));
-			game.addPlayerToGame(p);
-			System.out.println(p.toString());
+	public void addAutoToGame(Player[] player){
+		for(int i = 0; i < player.length; i++){
+			player[i] = new AutomaticPlayer(i, game, (byte)((Math.random() * Game.MAX_INITIAL_STRENGTH) + 1));
+			game.addPlayerToGame(player[i]);
 		}
 	}
 
