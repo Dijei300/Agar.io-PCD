@@ -8,14 +8,25 @@ public class Cell {
 	private Coordinate position;
 	private Game game;
 	private Player player=null;
-	
+
 	public Cell(Coordinate position,Game g) {
 		super();
 		this.position = position;
 		this.game=g;
 	}
 
-	public void move(){
+	//permite com q o jogador se mova de cell
+	public void move(Player player, Direction dir){
+		Cell oldCell = player.getCurrentCell();
+		Coordinate newCor = player.getCurrentCell().getPosition().translate(dir.getVector());
+		Cell newCell = game.getCell(newCor);
+		if(!newCell.isOcupied()){
+			newCell.setPlayer(player);
+			oldCell.removePlayer(player);
+			game.notifyChange();
+		}
+
+
 
 	}
 
@@ -35,6 +46,10 @@ public class Cell {
 	// Should not be used like this in the initial state: cell might be occupied, must coordinate this operation
 	public void setPlayer(Player player) {
 		this.player = player;
+	}
+
+	public void removePlayer(Player player) {
+		this.player = null;
 	}
 
 }

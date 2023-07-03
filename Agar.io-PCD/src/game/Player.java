@@ -3,6 +3,7 @@ package game;
 
 
 import environment.Cell;
+import environment.Direction;
 
 /**
  * Represents a player.
@@ -21,6 +22,14 @@ public abstract class Player extends Thread  {
 
 	// TODO: get player position from data in game
 	public Cell getCurrentCell() {
+		for(Cell[] c: game.board)
+			for(Cell cell: c) {
+				Player cellPlayer = cell.getPlayer();
+				if(cellPlayer != null)
+					if (cellPlayer.equals(this))
+						return cell;
+			}
+
 		return null;
 	}
 
@@ -33,6 +42,12 @@ public abstract class Player extends Thread  {
 	}
 
 	public abstract boolean isHumanPlayer();
+
+	public Direction getRandomDirection() {
+		Direction [] directions=Direction.values();
+		double randomDir= (Math.random()*directions.length);
+		return directions[(int) randomDir];
+	}
 
 
 	@Override

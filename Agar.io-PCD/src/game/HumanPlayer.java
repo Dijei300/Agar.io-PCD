@@ -10,10 +10,6 @@ public class HumanPlayer extends Player {
 		super(id, game, strength);
 	}
 
-	@Override
-	public void run(){
-
-	}
 	public boolean isHumanPlayer() {
 		return true;
 	}
