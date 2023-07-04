@@ -1,6 +1,5 @@
 package environment;
 
-import game.AutomaticPlayer;
 import game.Game;
 import game.Player;
 
@@ -16,18 +15,46 @@ public class Cell {
 	}
 
 	//permite com q o jogador se mova de cell
-	public void move(Player player, Direction dir){
+	public synchronized void move(Player player, Direction dir){
 		Cell oldCell = player.getCurrentCell();
 		Coordinate newCor = player.getCurrentCell().getPosition().translate(dir.getVector());
-		Cell newCell = game.getCell(newCor);
-		if(!newCell.isOcupied()){
-			newCell.setPlayer(player);
-			oldCell.removePlayer(player);
-			game.notifyChange();
+		if(!game.isCoordinateOutOfBoard(newCor)) {
+			Cell newCell = game.getCell(newCor);
+			if (!newCell.isOcupied()) {
+				oldCell.removePlayer();
+				newCell.setPlayer(player);
+			}else{
+				fight(oldCell, newCell);
+			}
 		}
+		game.notifyChange();
 
+	}
 
+	public void fight(Cell oldCell, Cell newCell){
+		Player p1 = oldCell.getPlayer();
+		Player p2 = newCell.getPlayer();
 
+		if(p1.getCurrentStrength() == p2.getCurrentStrength()){
+			int chooser = (int) ((Math.random() * (2 - 1)) + 1);
+			if(chooser == 1){
+				winner(p1, p2);
+			}else{
+				winner(p2, p1);
+			}
+		}else if(p1.getCurrentStrength() > p2.getCurrentStrength()){
+			winner(p1, p2);
+		}else{
+			winner(p2, p1);
+		}
+	}
+
+	public void winner(Player p1, Player p2){
+		byte plusStrength = (byte) (p1.getCurrentStrength() + p2.getCurrentStrength());
+		byte lostStrength = 0;
+		p1.setStrength(plusStrength);
+		p2.setStrength(lostStrength);
+		p2.stopRunning();
 	}
 
 	public Coordinate getPosition() {
@@ -48,7 +75,7 @@ public class Cell {
 		this.player = player;
 	}
 
-	public void removePlayer(Player player) {
+	public void removePlayer() {
 		this.player = null;
 	}
 

@@ -17,10 +17,11 @@ public abstract class Player extends Thread  {
 
 	private int id;
 
+	public volatile Boolean isRunning;
+
 	private byte currentStrength;
 	protected byte originalStrength;
 
-	// TODO: get player position from data in game
 	public Cell getCurrentCell() {
 		for(Cell[] c: game.board)
 			for(Cell cell: c) {
@@ -52,8 +53,7 @@ public abstract class Player extends Thread  {
 
 	@Override
 	public String toString() {
-		return "Player [id=" + id + ", currentStrength=" + currentStrength + ", getCurrentCell()=" + getCurrentCell()
-		+ "]";
+		return "Player [id=" + id + ", currentStrength=" + currentStrength + ", getCurrentCell()=" + getCurrentCell() + "]";
 	}
 
 	@Override
@@ -80,6 +80,14 @@ public abstract class Player extends Thread  {
 
 	public byte getCurrentStrength() {
 		return currentStrength;
+	}
+
+	public byte setStrength(byte strength){
+		return  this.currentStrength = strength;
+	}
+
+	public void stopRunning(){
+		this.isRunning = false;
 	}
 
 

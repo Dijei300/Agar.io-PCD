@@ -40,6 +40,10 @@ public class Game extends Observable {
 		
 	}
 
+	public boolean isCoordinateOutOfBoard(Coordinate cor) {
+		return (cor.x>=Game.DIMX || cor.y>=Game.DIMY || cor.x<0 || cor.y<0);
+	}
+
 	public Cell getCell(Coordinate at) {
 		return board[at.x][at.y];
 	}

@@ -44,8 +44,8 @@ public class GameGuiMain implements Observer {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		game.addPlayerToGame(new HumanPlayer(1, game, (byte)3));
-		Player[] players = new Player[1];
+		//game.addPlayerToGame(new HumanPlayer(1, game, (byte)3));
+		Player[] players = new Player[30];
 		addAutoToGame(players);
 		for(Thread gamer: players)
 			gamer.start();
